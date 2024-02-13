@@ -63,6 +63,7 @@ const cardArray = [
 cardArray.sort(() => 0.5 - Math.random());
 
 const gridDisplay = document.querySelector("#grid");
+const resultDisplay = document.querySelector("#result");
 let cardsChosen = [];
 let cardsChosenIds = [];
 const cardsWon = [];
@@ -86,6 +87,8 @@ function checkMatch() {
   console.log("check for a match");
 
   if (optionOneId === optionTwoId) {
+    cards[optionOneId].setAttribute("src", "images/blank.png");
+    cards[optionTwoId].setAttribute("src", "images/blank.png");
     alert("You have clicked the same image");
   }
 
@@ -95,10 +98,21 @@ function checkMatch() {
     cards[optionTwoId].setAttribute("src", "images/white.png");
     cards[optionOneId].removeEventListener("click", flipCard);
     cards[optionTwoId].removeEventListener("click", flipCard);
+
     cardsWon.push(cardsChosen);
+  } else {
+    // if there was no match
+    cards[optionOneId].setAttribute("src", "images/blank.png");
+    cards[optionTwoId].setAttribute("src", "images/blank.png");
+    alert("sorry try again");
   }
+  resultDisplay.textContent = cardsWon.length;
   cardsChosen = [];
   cardsChosenIds = [];
+
+  if (cardsWon.length == cardArray.length / 2) {
+    resultDisplay.innerHTML = "Congratulations you found them all";
+  }
 }
 
 //to get the IDs of the cards anytime it's clicked so that we can link it to the array to display name
