@@ -63,8 +63,9 @@ const cardArray = [
 cardArray.sort(() => 0.5 - Math.random());
 
 const gridDisplay = document.querySelector("#grid");
-const cardsChosen = [];
-const cardsChosenIds = [];
+let cardsChosen = [];
+let cardsChosenIds = [];
+const cardsWon = [];
 
 function createBoard() {
   for (let i = 0; i < cardArray.length; i++) {
@@ -78,14 +79,26 @@ function createBoard() {
 createBoard();
 
 function checkMatch() {
+  const optionOneId = cardsChosenIds[0];
+  const optionTwoId = cardsChosenIds[1];
   const cards = document.querySelectorAll("img");
   console.log(cards);
   console.log("check for a match");
+
+  if (optionOneId === optionTwoId) {
+    alert("You have clicked the same image");
+  }
+
   if (cardsChosen[0] == cardsChosen[1]) {
     alert("You found a match");
-    cardsImg[cardsChosenIds[0]].setAttribute("src", "images/white.png");
-    cardsImg[cardsChosenIds[1]].setAttribute("src", "images/white.png");
+    cards[optionOneId].setAttribute("src", "images/white.png");
+    cards[optionTwoId].setAttribute("src", "images/white.png");
+    cards[optionOneId].removeEventListener("click", flipCard);
+    cards[optionTwoId].removeEventListener("click", flipCard);
+    cardsWon.push(cardsChosen);
   }
+  cardsChosen = [];
+  cardsChosenIds = [];
 }
 
 //to get the IDs of the cards anytime it's clicked so that we can link it to the array to display name
