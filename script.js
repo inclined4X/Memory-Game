@@ -78,12 +78,14 @@ function createBoard() {
 createBoard();
 
 function checkMatch() {
-  const cardsImg = document.querySelectorAll(".img");
+  const cards = document.querySelectorAll("img");
+  console.log(cards);
   console.log("check for a match");
   if (cardsChosen[0] == cardsChosen[1]) {
     alert("You found a match");
+    cardsImg[cardsChosenIds[0]].setAttribute("src", "images/white.png");
+    cardsImg[cardsChosenIds[1]].setAttribute("src", "images/white.png");
   }
-  cardsImg[cardsChosenIds[0]].setAttribute("src", "images/white.png");
 }
 
 //to get the IDs of the cards anytime it's clicked so that we can link it to the array to display name
